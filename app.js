@@ -2,44 +2,6 @@ const celdas = document.querySelectorAll(".cell");
 const marcador = document.querySelector(".turno");
 const tablero = document.querySelector(".gamerboard");
 
-celdas.forEach((e) => {
-  e.addEventListener("click", () => {
-    e.textContent = "x";
-  });
-});
-
-function logicaDeJuego() {
-  let turno = 1;
-  const incrementarTurno = () => {
-    turno++;
-  };
-  const obtenerTurno = () => turno;
-
-  const revisarCeldas = (celdas) => {
-    let ganador = false;
-    let contador = 1;
-    for (let i = 0; i <= celdas.length; i++) {
-      if (celdas[i].textContent === celdas[i + 1].textContent) {
-        contador++; 
-      }
-    }
-    for (let i = 0; i <= celdas.length; i += 3) {
-      if (celdas[i].textContent === celdas[i + 3].textContent) {
-        contador++; 
-      }
-    }
-    for (let i = 0; i <= celdas.length; i += 4) {
-      if (celdas[i].textContent === celdas[i + 4].textContent) {
-        contador++; 
-      }
-    }
-    for (let i = 0; i <= celdas.length; i += 2) {
-      if (celdas[i].textContent === celdas[i + 2].textContent) {
-        contador++; 
-      }
-    }
-  }
-}
 // condigo consol(sirve)
 let ganador = false;
 // Ayuda
@@ -47,10 +9,11 @@ let ganador = false;
 // 3 4 5
 // 6 7 8
 
-const Linea = [1,1,1,0,0,0,0,0,0];
-const Columna = [1,0,0,1,0,0,1,0,0];
-const DiagonalD = [1,0,0,0,1,0,0,0,1];
-const DiagonalC = [0,0,1,0,1,0,1,0,0];
+const LineaTop = [1,1,1,0,0,0,0,0,0];
+const LineaMid = [0,0,0,1,1,1,0,0,0];
+const LineaMBotton= [0,0,0,0,0,0,1,1,1];
+const noGana= [0,1,1,1,0,0,0,0,0];
+
 
 function buscarGanador(arr, marca){
   const ganaPor = {
@@ -60,8 +23,8 @@ function buscarGanador(arr, marca){
     diagonalCreciente: 0
   }
   
-  for (let i = 0; i <= arr.length; i++) {
-    if (arr[i] === marca && arr[i + 1] === marca) {
+  for (let i = 0; i <= arr.length; i += 3) {
+    if (arr[i] === marca && arr[i + 1] === marca && arr[i + 2] === marca){
       ganaPor.linea++;
     }
   }
@@ -86,16 +49,16 @@ function buscarGanador(arr, marca){
   
   return ganaPor;
 }
-const ganaL = buscarGanador(Linea,1);
-const ganaC = buscarGanador(Columna,1);
-const ganaDd = buscarGanador(DiagonalD,1);
-const ganaDc = buscarGanador(DiagonalC,1);
+const ganaLT = buscarGanador(LineaTop,1);
+const ganaLM = buscarGanador(LineaMid,1);
+const ganaLB = buscarGanador(LineaMBotton,1);
+const nowin = buscarGanador(noGana,1);
 
-console.log("Gana en linea todo el objeto:");
-console.log(ganaL);
-console.log("Gana en Columna todo el objeto:");
-console.log(ganaC);
-console.log("Gana en DiagonalD todo el objeto:");
-console.log(ganaDd);
-console.log("Gana en DiagonalC todo el objeto:");
-console.log(ganaDc);
+console.log("Gana en linea alta todo el objeto:");
+console.log(ganaLT);
+console.log("Gana en linea media todo el objeto:");
+console.log(ganaLM);
+console.log("Gana en liena baja todo el objeto:");
+console.log(ganaLB);
+console.log("No deberia ganar");
+console.log(nowin);
