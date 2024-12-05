@@ -1,71 +1,46 @@
-const celdas = document.querySelectorAll(".cell");
-const marcaTurno = document.querySelector(".turno");
-const tablero = document.querySelector(".gamerboard");
-let turno = 1;
+import { BuscarGanador } from "./gameLogic.js";
+import { tablero, marcador, form } from "./dom.js";
 
-celdas.forEach((celda) => {
-  celda.addEventListener("click", () => {
-    if (turno % 2 === 0 && celda.textContent === "") {
-      celda.textContent = "X";
-      turno++;
-      marcaTurno.textContent = `Le tocan a las x Turno ${turno}`;
-    } else if (turno % 2 === 1 && celda.textContent === "") {
-      celda.textContent = "O";
-      turno++;
-      marcaTurno.textContent = `Le tocan a las o Turno ${turno}`;
-    }
-
-    if (buscarGanador(celdas, "X")) {
-      marcaTurno.textContent = "Ganaron las X";
-    } else if (buscarGanador(celdas, "O")) {
-      marcaTurno.textContent = "Ganaron las O";
-    } else if(turno === 10 && !buscarGanador(celdas, "O" ) && !buscarGanador(celdas, "X" )){
-      marcaTurno.textContent = "Empate";
-    }
-  });
-});
-
-
-function buscarGanador(arr, marca) {
-  let gano = false;
-
-  for (let i = 0; i < arr.length; i += 3) {
-    if (
-      arr[i].textContent === marca &&
-      arr[i + 1].textContent === marca &&
-      arr[i + 2].textContent === marca
-    ) {
-      gano = true;
-    }
-  }
-
-  // Columna
-  for (let i = 0; i < 3; i++) {
-    if (
-      arr[i].textContent === marca &&
-      arr[i + 3].textContent === marca &&
-      arr[i + 6].textContent === marca
-    ) {
-      gano = true;
-    }
-  }
-  // Diagonal 1
-  if (
-    arr[0].textContent === marca &&
-    arr[4].textContent === marca &&
-    arr[8].textContent === marca
-  ) {
-    gano = true;
-  }
-
-  // Diagonal 2
-  if (
-    arr[2].textContent === marca &&
-    arr[4].textContent === marca &&
-    arr[6].textContent === marca
-  ) {
-    gano = true;
-  }
-
-  return gano;
+function ObtenerPlayer(){
+  const playerOne = document.querySelector("#player-one").value;
+  const playerTwo = document.querySelector("#player-two").value;
+  return {playerOne, playerTwo}
 }
+
+form.addEventListener("submit", ObtenerPlayer);
+
+function Partida() {
+  const player = {playerOne:"OAHOA",playerTwo:"dasdasd"};
+  let ronda = 1;
+  
+  const actualizarMarcador = () => {
+    if (BuscarGanador(tablero, "X")) {
+      marcador.textContent = "Ganaron las X";
+    } else if (BuscarGanador(tablero, "O")) {
+      marcador.textContent = "Ganaron las O";
+    } else if (ronda === 10) {
+      marcador.textContent = "Empate";
+    } else if(ronda % 2 === 0){
+      marcador.textContent = `Ronda ${ronda} Jugador ${player.playerOne}`
+    } else {
+      marcador.textContent = `Ronda ${ronda} Jugador ${player.playerTwo}`;
+    }
+  };
+  const resetearPartida = () => {
+    tablero.forEach((celda) => celda.textContent = "");
+  };
+  tablero.forEach((celda) => {
+    celda.addEventListener("click", () => {
+      if (ronda % 2 === 0 && celda.textContent === "") {
+        celda.textContent = "X";
+        ronda++;
+      } else if (ronda % 2 === 1 && celda.textContent === "") {
+        celda.textContent = "O";
+        ronda++;
+      }
+      actualizarMarcador();
+    });
+  });
+}
+
+Partida();

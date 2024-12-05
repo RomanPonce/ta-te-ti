@@ -7,8 +7,19 @@
   <title>Document</title>
 </head>
 <body>
-  <h1 class="turno">1</h1>
+  <dialog open>
+    <form>
+      <label for="PlayerOne">
+        <input type="text" name="PlayerOne" id="player-one" placeholder="Nombre del Jugador 1" required>
+      </label>
+      <label for="PlayerTwo">
+        <input type="text" name="PlayerTwo" id="player-two" placeholder="Nombre del Jugador 2" required>
+      </label>
+      <button type="submit">Empezar</button>
+    </form>
+  </dialog>
   
+  <h1 id="turno"></h1>
   <div class="gameboard">
     <div class="cell"></div>
     <div class="cell"></div>
@@ -20,6 +31,6 @@
     <div class="cell"></div>
     <div class="cell"></div>
   </div>
-  <script src="app.js"></script>
+  <script src="app.js" type="module" defer></script>  
 </body>
 </html>
