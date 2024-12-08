@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Document</title>
-</head>
-<body>
-  <dialog open>
-    <form>
-      <label for="PlayerOne">
-        <input type="text" name="PlayerOne" id="player-one" placeholder="Nombre del Jugador 1" required>
-      </label>
-      <label for="PlayerTwo">
-        <input type="text" name="PlayerTwo" id="player-two" placeholder="Nombre del Jugador 2" required>
-      </label>
-      <button type="submit">Empezar</button>
-    </form>
-  </dialog>
-  
-  <h1 id="turno"></h1>
-  <div class="gameboard">
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-  </div>
-  <script src="app.js" type="module" defer></script>  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="contenedor">
+      <dialog open class="contenedor-primera-pantalla">
+        <form id="primera-pantalla">
+          <h1>Ta-Te-Ti</h1>
+          <label for="PlayerOne">
+            <input
+              type="text"
+              name="PlayerOne"
+              id="player-one"
+              placeholder="Nombre del Jugador 1"
+              required
+            />
+          </label>
+          <label for="PlayerTwo">
+            <input
+              type="text"
+              name="PlayerTwo"
+              id="player-two"
+              placeholder="Nombre del Jugador 2"
+              required
+            />
+          </label>
+          <button type="submit">Empezar</button>
+        </form>
+      </dialog>
+      <dialog id="tablero" class="contenedor-tablero">
+        <h2 id="turno"></h2>
+        <div class="gameboard">
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+        </div>
+      </dialog>
+    </div>
+    <script src="app.js" type="module" defer></script>
+  </body>
 </html>

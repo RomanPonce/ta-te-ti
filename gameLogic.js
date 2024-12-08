@@ -37,5 +37,5 @@ export function BuscarGanador(arr, marca) {
     gano = true;
   }
 
-  return gano;
+  return {gano, marca};
 }

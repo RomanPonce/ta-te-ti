@@ -1,35 +1,40 @@
 import { BuscarGanador } from "./gameLogic.js";
-import { tablero, marcador, form } from "./dom.js";
+import {  tablero, celdas, marcador,form, dialog } from "./dom.js";
 
-function ObtenerPlayer(){
-  const playerOne = document.querySelector("#player-one").value;
-  const playerTwo = document.querySelector("#player-two").value;
-  return {playerOne, playerTwo}
-}
-
-form.addEventListener("submit", ObtenerPlayer);
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  Partida();
+});
 
 function Partida() {
-  const player = {playerOne:"OAHOA",playerTwo:"dasdasd"};
+  const player = {
+    uno: document.querySelector("#player-one").value,
+    dos: document.querySelector("#player-two").value
+  }
   let ronda = 1;
-  
+  let playerGanador = {};
+
+  dialog.close();
+  tablero.showModal();
+
   const actualizarMarcador = () => {
-    if (BuscarGanador(tablero, "X")) {
-      marcador.textContent = "Ganaron las X";
-    } else if (BuscarGanador(tablero, "O")) {
-      marcador.textContent = "Ganaron las O";
+    playerGanador = BuscarGanador(celdas, "X");
+    console.log(playerGanador.gano);
+
+    if (BuscarGanador(celdas, "X")) {
+      marcador.textContent = `Gano ${player.uno}`;
+    } else if (BuscarGanador(celdas, "O")) {
+      marcador.textContent = `Gano ${player.dos}`;
     } else if (ronda === 10) {
       marcador.textContent = "Empate";
     } else if(ronda % 2 === 0){
-      marcador.textContent = `Ronda ${ronda} Jugador ${player.playerOne}`
+      marcador.textContent = `Ronda ${ronda} Turno: ${player.uno}`
     } else {
-      marcador.textContent = `Ronda ${ronda} Jugador ${player.playerTwo}`;
+      marcador.textContent = `Ronda ${ronda} Turno: ${player.dos}`;
     }
   };
-  const resetearPartida = () => {
-    tablero.forEach((celda) => celda.textContent = "");
-  };
-  tablero.forEach((celda) => {
+
+  celdas.forEach((celda) => {
     celda.addEventListener("click", () => {
       if (ronda % 2 === 0 && celda.textContent === "") {
         celda.textContent = "X";
@@ -41,6 +46,7 @@ function Partida() {
       actualizarMarcador();
     });
   });
+  actualizarMarcador();
 }
 
-Partida();
+
